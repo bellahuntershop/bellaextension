@@ -19,8 +19,5 @@
   "oauth2": {
     "client_id": "8a5qhudzqivk9ef",
     "scopes": []
-  },
-  "background": {
-    "service_worker": "background.js"
-  }  
+  }
 }

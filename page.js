@@ -400,11 +400,13 @@ function handlePrintfulClick() {
 		},
 		body: JSON.stringify(productData)
 	})
-	.then(response => {
+	.then(async response => {
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}
-		return response.json();
+		const data = await response.json();
+		console.log("response.json", data);
+		return data;
 	});
 	// .then(data => {
 	// 	console.log("Printful product created successfully:", data);
