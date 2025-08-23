@@ -2,12 +2,17 @@ const dropboxID = '8a5qhudzqivk9ef';
 const tinyPNGID = 'J3yJxLvJ9wkpLRhDCtP0Ykj5cs4j4rst';
 const sheetInput = document.getElementById('sheetUrl');
 const executeButton = document.getElementById('execute');
-
+const dpiButton = document.getElementById('dpi');
+const printfulButton = document.getElementById('printful');
 
 
 // Perform Actions
-if (executeButton) executeButton.addEventListener('click', handleExecuteClick);
+// if (executeButton) executeButton.addEventListener('click', handleExecuteClick);
+// if (dpiButton) dpiButton.addEventListener('click', handleDpiClick);
+if (printfulButton) printfulButton.addEventListener('click', handlePrintfulClick);
 
+//https://developers.printful.com/tokens/add-new-token -- expires on aug 10, 2027
+// const printfulSecretToken = x5fWIf5xIhKne02Tv3ufp5SUDMqADPbnsqKR2QI0;
 
 
 
@@ -33,7 +38,7 @@ function handleExecuteClick() {
 		//processListingByFolder(folderIds);
 	});
 
-	fetch("http://localhost:3000/api/mockup", { method: "POST" });
+	fetch("http://localhost:3000/api/applyDesignToSmartMockup", { method: "POST" });
 	console.log("Mockup request sent to server.");
 }
 async function processListingByFolder({ parentID, variantID }) {
@@ -376,3 +381,67 @@ function updateUserInitialize() {
 	  }
   });
 }
+
+
+
+
+function handleDpiClick() {
+	fetch("http://localhost:3000/api/set300dpi", { method: "POST" });
+	console.log("DPI request sent to server.");
+}
+
+function handlePrintfulClick() {
+	console.log("handlePrintfulClick");
+
+	fetch("http://localhost:3000/api/createPrintfulProduct", { 
+		method: "POST",
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(productData)
+	})
+	.then(response => {
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		return response.json();
+	});
+	// .then(data => {
+	// 	console.log("Printful product created successfully:", data);
+	// })
+	// .catch(error => {
+	// 	console.error("Error creating Printful product:", error);
+	// });
+	
+	console.log("Printful request sent to server.");
+}
+
+const productData = {
+	"productName": "Bella Sweatshirt Collection",
+	"printFiles": {
+		"black": [
+			{
+				"type": "default",
+				"url": chrome.runtime.getURL("print-black.png")
+			}
+		],
+		"dark heather": [
+			{
+				"type": "default", 
+				"url": chrome.runtime.getURL("print-charcoalheather.png")
+			}
+		],
+		"sport grey": [
+			{
+				"type": "default",
+				"url": chrome.runtime.getURL("print-carbongrey.png")
+			}
+		],
+		"white": [
+			{
+				"type": "default",
+				"url": chrome.runtime.getURL("print-white.png")
+			}
+		]
+	}
+};

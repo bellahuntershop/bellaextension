@@ -7,8 +7,6 @@
 		<script src="page.js" defer></script>
 	</head>
 	<body>
-		<iframe id="photopea-frame" src="https://www.photopea.com" style="width:0;height:0;border:0;visibility:hidden;"></iframe>
-
 		<div class="page-form">
 			<div class="sheet-container hidden">
 				<input type="text" id="sheetUrl" placeholder="paste google sheet url" />
@@ -17,12 +15,14 @@
 					<button id="clearSheetBtn" class="clear-btn" aria-label="Clear">×</button>
 				</div>
 			</div>
-
-			<div class="listing-id-container">
+			<div class="listing-id-container hidden">
 				<input type="text" id="listingIDs" placeholder="What is the listing number?" />
 				<p id="listing-error" style="color: red; font-size: 12px; display: none;">Listing number is required.</p>
 			</div>
-			<button id="execute" type="submit">exectuer</button>
+
+			<!-- <button id="execute" type="submit">smart</button>
+			<button id="dpi">300dpi</button> -->
+			<button id="printful">printful</button>
 		</div>
 		<div class="page-info" >
 			<div class="example hidden">
