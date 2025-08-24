@@ -4,12 +4,14 @@ const sheetInput = document.getElementById('sheetUrl');
 const executeButton = document.getElementById('execute');
 const dpiButton = document.getElementById('dpi');
 const printfulButton = document.getElementById('printful');
+const refreshPrintful = document.getElementById('refreshPrintful');
 
 
 // Perform Actions
 // if (executeButton) executeButton.addEventListener('click', handleExecuteClick);
 // if (dpiButton) dpiButton.addEventListener('click', handleDpiClick);
 if (printfulButton) printfulButton.addEventListener('click', handlePrintfulClick);
+if (refreshPrintful) refreshPrintful.addEventListener('click', handleRefreshPrintfulClick);
 
 //https://developers.printful.com/tokens/add-new-token -- expires on aug 10, 2027
 // const printfulSecretToken = x5fWIf5xIhKne02Tv3ufp5SUDMqADPbnsqKR2QI0;
@@ -447,3 +449,31 @@ const productData = {
 		]
 	}
 };
+
+function handleRefreshPrintfulClick() {
+	fetch("http://localhost:3000/api/refresh-auth", { 
+		method: "GET",
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+	.then(async response => {
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		const data = await response.json();
+		console.log("response.json", data);
+		return data;
+	})
+	.then(data => {
+		if (data.authUrl) {
+			chrome.tabs.create({ url: data.authUrl });
+			console.log("Authorization tab opened with URL:", data.authUrl);
+		} else {
+			console.log("No authUrl found in response");
+		}
+	})
+	.catch(error => {
+		console.error("Error refreshing auth:", error);
+	});
+}
