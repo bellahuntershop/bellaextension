@@ -1,3 +1,5 @@
+const envUrl = 'https://bella-backend.vercel.app'; //http://localhost:3000
+
 const dropboxID = '8a5qhudzqivk9ef';
 const tinyPNGID = 'J3yJxLvJ9wkpLRhDCtP0Ykj5cs4j4rst';
 const sheetInput = document.getElementById('sheetUrl');
@@ -40,7 +42,7 @@ function handleExecuteClick() {
 		//processListingByFolder(folderIds);
 	});
 
-	fetch("http://localhost:3000/api/applyDesignToSmartMockup", { method: "POST" });
+	fetch(`${envUrl}/api/applyDesignToSmartMockup`, { method: "POST" });
 	console.log("Mockup request sent to server.");
 }
 async function processListingByFolder({ parentID, variantID }) {
@@ -388,14 +390,14 @@ function updateUserInitialize() {
 
 
 function handleDpiClick() {
-	fetch("http://localhost:3000/api/set300dpi", { method: "POST" });
+	fetch(`${envUrl}/api/set300dpi`, { method: "POST" });
 	console.log("DPI request sent to server.");
 }
 
 function handlePrintfulClick() {
 	console.log("handlePrintfulClick");
 
-	fetch("http://localhost:3000/api/createPrintfulProduct", { 
+	fetch(`${envUrl}/api/createPrintfulProduct`	, { 
 		method: "POST",
 		headers: {
 			'Content-Type': 'application/json'
@@ -419,7 +421,6 @@ function handlePrintfulClick() {
 	
 	console.log("Printful request sent to server.");
 }
-
 const productData = {
 	"productName": "Bella Sweatshirt Collection",
 	"printFiles": {
@@ -451,7 +452,7 @@ const productData = {
 };
 
 function handleRefreshPrintfulClick() {
-	fetch("http://localhost:3000/api/refresh-auth", { 
+	fetch(`${envUrl}/api/refresh-auth`, { 
 		method: "GET",
 		headers: {
 			'Content-Type': 'application/json'
