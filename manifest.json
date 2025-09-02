@@ -4,20 +4,19 @@
   "version": "1.0",
   "description": "Assistant for Etsy shop",
   "icons": {
-    "16": "icon16.png",
-    "128": "icon128.png"
+    "16": "media/icon16.png",
+    "128": "media/icon128.png"
   },
   "web_accessible_resources": [{
-    "resources": ["page.html"],
+    "resources": ["src/page.html"],
     "matches": ["<all_urls>"]
   }],
   "action": {
     "default_title": "Open Workflow"
   },
+  "background": {
+    "service_worker": "src/background.js"
+  },
   "permissions": ["tabs", "identity", "storage", "scripting", "activeTab"],
-  "host_permissions": ["<all_urls>"],
-  "oauth2": {
-    "client_id": "8a5qhudzqivk9ef",
-    "scopes": []
-  }
+  "host_permissions": ["<all_urls>"]
 }

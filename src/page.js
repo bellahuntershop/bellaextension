@@ -1,4 +1,4 @@
-const envUrl = 'https://bella-backend.vercel.app'; //http://localhost:3000
+const envUrl = 'https://bella-backend.vercel.app';
 
 const dropboxID = '8a5qhudzqivk9ef';
 const tinyPNGID = 'J3yJxLvJ9wkpLRhDCtP0Ykj5cs4j4rst';
@@ -15,8 +15,7 @@ const refreshPrintful = document.getElementById('refreshPrintful');
 if (printfulButton) printfulButton.addEventListener('click', handlePrintfulClick);
 if (refreshPrintful) refreshPrintful.addEventListener('click', handleRefreshPrintfulClick);
 
-//https://developers.printful.com/tokens/add-new-token -- expires on aug 10, 2027
-// const printfulSecretToken = x5fWIf5xIhKne02Tv3ufp5SUDMqADPbnsqKR2QI0;
+
 
 
 
@@ -395,7 +394,7 @@ function handleDpiClick() {
 }
 
 function handlePrintfulClick() {
-	console.log("handlePrintfulClick");
+	console.log(envUrl);
 
 	fetch(`${envUrl}/api/createPrintfulProduct`	, { 
 		method: "POST",
@@ -418,8 +417,6 @@ function handlePrintfulClick() {
 	// .catch(error => {
 	// 	console.error("Error creating Printful product:", error);
 	// });
-	
-	console.log("Printful request sent to server.");
 }
 const productData = {
 	"productName": "Bella Sweatshirt Collection",
@@ -469,7 +466,6 @@ function handleRefreshPrintfulClick() {
 	.then(data => {
 		if (data.authUrl) {
 			chrome.tabs.create({ url: data.authUrl });
-			console.log("Authorization tab opened with URL:", data.authUrl);
 		} else {
 			console.log("No authUrl found in response");
 		}
