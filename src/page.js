@@ -284,9 +284,6 @@ function loadLastUrlFromStorage() {
 	  sheetTitleDisplay.textContent = data.sheetTitle; 
 	  document.querySelector('.sheet-title')?.classList.remove('hidden');
 	}
-	else {
-	 showByClass('.example');
-	}
   });
 }
 
@@ -328,7 +325,6 @@ function loadSheetInfo(fullTitle) {
   sheetTitleText.textContent = fullTitle;
   document.querySelector('.sheet-title')?.classList.remove('hidden');
   console.log('loadSheetInfo');
-  hideByClass('.example');
 }
 
 // On Title Click
