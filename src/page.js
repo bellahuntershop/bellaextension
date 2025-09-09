@@ -5,14 +5,14 @@ const tinyPNGID = 'J3yJxLvJ9wkpLRhDCtP0Ykj5cs4j4rst';
 const sheetInput = document.getElementById('sheetUrl');
 const executeButton = document.getElementById('execute');
 const dpiButton = document.getElementById('dpi');
-const printfulButton = document.getElementById('printful');
+const createProductButton = document.getElementById('createProduct');
 const refreshPrintful = document.getElementById('refreshPrintful');
 
 
 // Perform Actions
 // if (executeButton) executeButton.addEventListener('click', handleExecuteClick);
 // if (dpiButton) dpiButton.addEventListener('click', handleDpiClick);
-if (printfulButton) printfulButton.addEventListener('click', handlePrintfulClick);
+if (createProductButton) createProductButton.addEventListener('click', handleCreateProductClick);
 if (refreshPrintful) refreshPrintful.addEventListener('click', handleRefreshPrintfulClick);
 
 
@@ -389,10 +389,8 @@ function handleDpiClick() {
 	console.log("DPI request sent to server.");
 }
 
-function handlePrintfulClick() {
-	console.log(envUrl);
-
-	fetch(`${envUrl}/api/createPrintfulProduct`	, { 
+function handleCreateProductClick() {
+	fetch(`${envUrl}/api/createEtsyProduct`	, { 
 		method: "POST",
 		headers: {
 			'Content-Type': 'application/json'
@@ -407,12 +405,6 @@ function handlePrintfulClick() {
 		console.log("response.json", data);
 		return data;
 	});
-	// .then(data => {
-	// 	console.log("Printful product created successfully:", data);
-	// })
-	// .catch(error => {
-	// 	console.error("Error creating Printful product:", error);
-	// });
 }
 const productData = {
 	"productName": "Bella Sweatshirt Collection",
