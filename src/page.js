@@ -7,6 +7,7 @@ const executeButton = document.getElementById('execute');
 const dpiButton = document.getElementById('dpi');
 const createProductButton = document.getElementById('createProduct');
 const refreshPrintful = document.getElementById('refreshPrintful');
+const refreshEtsy = document.getElementById('refreshEtsy');
 
 
 // Perform Actions
@@ -14,6 +15,7 @@ const refreshPrintful = document.getElementById('refreshPrintful');
 // if (dpiButton) dpiButton.addEventListener('click', handleDpiClick);
 if (createProductButton) createProductButton.addEventListener('click', handleCreateProductClick);
 if (refreshPrintful) refreshPrintful.addEventListener('click', handleRefreshPrintfulClick);
+if (refreshEtsy) refreshEtsy.addEventListener('click', handleRefreshEtsyClick);
 
 
 
@@ -438,6 +440,32 @@ const productData = {
 
 function handleRefreshPrintfulClick() {
 	fetch(`${envUrl}/api/refresh-auth`, { 
+		method: "GET",
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+	.then(async response => {
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		const data = await response.json();
+		console.log("response.json", data);
+		return data;
+	})
+	.then(data => {
+		if (data.authUrl) {
+			chrome.tabs.create({ url: data.authUrl });
+		} else {
+			console.log("No authUrl found in response");
+		}
+	})
+	.catch(error => {
+		console.error("Error refreshing auth:", error);
+	});
+}
+function handleRefreshEtsyClick() {
+	fetch(`${envUrl}/api/refresh-auth-etsy`, { 
 		method: "GET",
 		headers: {
 			'Content-Type': 'application/json'
